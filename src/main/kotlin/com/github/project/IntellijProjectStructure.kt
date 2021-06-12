@@ -44,6 +44,7 @@ class IntellijIdeaMutableModuleBlock(private val modifiableModel: ModifiableRoot
 }
 
 class IntellijModuleBlock(val module: Module) : ModuleBlock {
+
     private val manager = ModuleRootManager.getInstance(module)
 
     override fun getName(): String {
@@ -60,8 +61,8 @@ class IntellijModuleBlock(val module: Module) : ModuleBlock {
 
     override fun updateModel(updater: (mutable: MutableModuleBlock) -> Boolean) {
         ModuleRootModificationUtil.updateModel(module) { modModel ->
-            val mutator = IntellijIdeaMutableModuleBlock(modModel)
-            updater(mutator)
+            val modWrapper = IntellijIdeaMutableModuleBlock(modModel)
+            updater(modWrapper)
         }
     }
 }
