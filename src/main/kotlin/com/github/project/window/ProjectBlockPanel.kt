@@ -1,7 +1,8 @@
 package com.github.project.window
 
+import com.github.project.PluginActions
 import com.intellij.icons.AllIcons.Actions
-import com.intellij.openapi.wm.ToolWindow
+import com.intellij.openapi.project.Project
 import com.intellij.ui.layout.panel
 import java.awt.Dimension
 import java.awt.event.ActionEvent
@@ -9,37 +10,35 @@ import java.awt.event.ActionListener
 import javax.swing.JButton
 import javax.swing.JCheckBox
 import javax.swing.JPanel
-import javax.swing.JSeparator
-import javax.swing.JTable
 import javax.swing.JToolBar
 
 private const val REFRESH_ACTION = "refresh-deps"
+private const val CHANGE_REFRESH_SETTINGS_ACTION = "refresh-setting-change"
 
 class ProjectBlockPanel : ActionListener {
 
     private val content: JPanel
-    private val projectToolbarActions: ProjectToolbarActions
+    private val pluginActions: PluginActions
+    private val project: Project
 
-    constructor(toolWindow: ToolWindow, projectToolbarActions: ProjectToolbarActions) {
+    private lateinit var autoSyncCheckbox: JCheckBox
+
+    constructor(project: Project, pluginActions: PluginActions) {
+        val that = this
         content = panel {
             row {
                 val toolBar = JToolBar()
                 toolBar.add(createButton(REFRESH_ACTION, "Refresh dependencies"))
                 toolBar.isBorderPainted = false
-                toolBar.add(JCheckBox("Enable auto-sync", true))
+                autoSyncCheckbox = JCheckBox("Enable auto-sync", pluginActions.isChangeEnabled(project))
+                autoSyncCheckbox.actionCommand = CHANGE_REFRESH_SETTINGS_ACTION
+                autoSyncCheckbox.addActionListener(that)
+                toolBar.add(autoSyncCheckbox)
                 component(toolBar)
             }
-            row {
-                component(JSeparator())
-            }
-            row {
-                label("Excludes")
-            }
-            row {
-                component(JTable())
-            }
         }
-        this.projectToolbarActions = projectToolbarActions
+        this.project = project
+        this.pluginActions = pluginActions
     }
 
     fun getContent(): JPanel {
@@ -57,7 +56,12 @@ class ProjectBlockPanel : ActionListener {
 
     override fun actionPerformed(e: ActionEvent) {
         when (e.actionCommand) {
-            REFRESH_ACTION -> projectToolbarActions.startRefreshing()
+            REFRESH_ACTION -> pluginActions.startRefreshing(project)
+            CHANGE_REFRESH_SETTINGS_ACTION -> {
+                val enabled = autoSyncCheckbox.isSelected
+                pluginActions.changeEnabled(enabled, project)
+            }
+
         }
     }
 }
