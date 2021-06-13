@@ -12,14 +12,14 @@ class DependencyUpdater {
         for (module in projectBlock.getModules()) {
             module.updateModel { mutableModel ->
                 var changed = false
-                for (dependency in module.getDependencies()) {
+                for ((index, dependency) in module.getDependencies().withIndex()) {
                     if (dependency.getType() != DependencyType.LIBRARY) {
                         continue
                     }
                     val replacementModule: ModuleBlock? = match(dependency, moduleNameToModule)
                     if (replacementModule != null) {
                         mutableModel.removeDependency(dependency)
-                        mutableModel.addModule(replacementModule)
+                        mutableModel.addModule(replacementModule, index)
                         changed = true
                     }
                 }

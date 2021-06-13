@@ -34,8 +34,25 @@ class IntelliDependencyBlock(val orderEntry: OrderEntry) : DependencyBlock {
 }
 
 class IntellijIdeaMutableModuleBlock(private val modifiableModel: ModifiableRootModel) : MutableModuleBlock {
-    override fun addModule(block: ModuleBlock) {
+    override fun addModule(block: ModuleBlock, index: Int) {
         modifiableModel.addModuleOrderEntry((block as IntellijModuleBlock).module)
+        val orderEntries = modifiableModel.orderEntries
+        val addedEntry = orderEntries[orderEntries.size - 1]
+        var orderEntryTmp: OrderEntry? = null
+        for (i in orderEntries.indices) {
+            if (i < index) {
+                continue
+            }
+            if (i == index) {
+                orderEntryTmp = orderEntries[i]
+                orderEntries[i] = addedEntry
+            } else {
+                val tmp = orderEntries[i]
+                orderEntries[i] = orderEntryTmp
+                orderEntryTmp = tmp
+            }
+        }
+        modifiableModel.rearrangeOrderEntries(orderEntries)
     }
 
     override fun removeDependency(block: DependencyBlock) {

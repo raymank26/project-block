@@ -15,7 +15,7 @@ interface ModuleBlock : DependencyBlock {
 }
 
 interface MutableModuleBlock {
-    fun addModule(block: ModuleBlock)
+    fun addModule(block: ModuleBlock, index: Int)
     fun removeDependency(block: DependencyBlock)
 }
 

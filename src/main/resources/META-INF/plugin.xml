@@ -4,7 +4,7 @@
     <vendor email="rayman.k26@gmail.com" url="https://github.com/raymank26">Anton Ermak</vendor>
 
     <description><![CDATA[
-    Substitutes library to modules in multi-module projects.
+    Substitutes libraries to modules in multi-module projects.
     ]]></description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
