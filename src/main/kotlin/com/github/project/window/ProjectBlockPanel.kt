@@ -56,7 +56,7 @@ class ProjectBlockPanel : ActionListener {
 
     override fun actionPerformed(e: ActionEvent) {
         when (e.actionCommand) {
-            REFRESH_ACTION -> pluginActions.triggerRefresh(project)
+            REFRESH_ACTION -> pluginActions.triggerRefresh(project, true)
             CHANGE_REFRESH_SETTINGS_ACTION -> {
                 val enabled = autoSyncCheckbox.isSelected
                 pluginActions.changeEnabled(enabled, project)

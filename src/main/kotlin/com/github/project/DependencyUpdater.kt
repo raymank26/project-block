@@ -1,5 +1,10 @@
 package com.github.project
 
+import com.github.project.block.DependencyBlock
+import com.github.project.block.DependencyType
+import com.github.project.block.ModuleBlock
+import com.github.project.block.ProjectBlock
+
 class DependencyUpdater {
 
     fun updateDependencies(projectBlock: ProjectBlock) {
