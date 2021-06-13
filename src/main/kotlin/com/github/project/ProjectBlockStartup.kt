@@ -11,18 +11,18 @@ import com.intellij.util.Function
 
 class ProjectBlockStartup : StartupActivity {
     override fun runActivity(project: Project) {
-        dependencyPlugin.startRefreshing(project)
+        dependencyPlugin.triggerRefresh(project)
         project.messageBus.connect().subscribe(ProjectTopics.MODULES, object : ModuleListener {
             override fun moduleAdded(project: Project, module: Module) {
-                dependencyPlugin.startRefreshing(project)
+                dependencyPlugin.triggerRefresh(project)
             }
 
             override fun beforeModuleRemoved(project: Project, module: Module) {
-                dependencyPlugin.startRefreshing(project)
+                dependencyPlugin.triggerRefresh(project)
             }
 
             override fun moduleRemoved(project: Project, module: Module) {
-                dependencyPlugin.startRefreshing(project)
+                dependencyPlugin.triggerRefresh(project)
             }
 
             override fun modulesRenamed(
@@ -30,17 +30,17 @@ class ProjectBlockStartup : StartupActivity {
                 modules: MutableList<Module>,
                 oldNameProvider: Function<Module, String>
             ) {
-                dependencyPlugin.startRefreshing(project)
+                dependencyPlugin.triggerRefresh(project)
             }
         })
 
         project.messageBus.connect().subscribe(ProjectTopics.PROJECT_ROOTS, object : ModuleRootListener {
             override fun beforeRootsChange(event: ModuleRootEvent) {
-                dependencyPlugin.startRefreshing(project)
+                dependencyPlugin.triggerRefresh(project)
             }
 
             override fun rootsChanged(event: ModuleRootEvent) {
-                dependencyPlugin.startRefreshing(project)
+                dependencyPlugin.triggerRefresh(project)
             }
         })
     }

@@ -24,12 +24,10 @@ class DependencyUpdater {
     }
 
     private fun match(dependencyBlock: DependencyBlock, moduleNameToModule: Map<String, ModuleBlock>): ModuleBlock? {
-        for (name in listOf(dependencyBlock.getName(), dependencyBlock.getName().replace(".", "-"))) {
-            val module = moduleNameToModule[name]
-            if (module != null) {
-                return module
-            }
+        var name = dependencyBlock.getName()
+        if (name.startsWith("Gradle") || name.startsWith("Maven")) {
+            name = name.split(":")[2]
         }
-        return null
+        return moduleNameToModule[name]
     }
 }

@@ -21,7 +21,7 @@ class DependencyPlugin(
         prop.setValue(PROJ_BLOCK_REFRESH_PROP_KEY, enabled, true)
     }
 
-    override fun startRefreshing(project: Project) {
+    override fun triggerRefresh(project: Project) {
         if (isChangeEnabled(project)) {
             application.invokeLater {
                 dependencyUpdater.updateDependencies(IntellijProjectBlock(project))

@@ -30,7 +30,7 @@ class ProjectBlockPanel : ActionListener {
                 val toolBar = JToolBar()
                 toolBar.add(createButton(REFRESH_ACTION, "Refresh dependencies"))
                 toolBar.isBorderPainted = false
-                autoSyncCheckbox = JCheckBox("Enable auto-sync", pluginActions.isChangeEnabled(project))
+                autoSyncCheckbox = JCheckBox("Enable sync", pluginActions.isChangeEnabled(project))
                 autoSyncCheckbox.actionCommand = CHANGE_REFRESH_SETTINGS_ACTION
                 autoSyncCheckbox.addActionListener(that)
                 toolBar.add(autoSyncCheckbox)
@@ -56,12 +56,11 @@ class ProjectBlockPanel : ActionListener {
 
     override fun actionPerformed(e: ActionEvent) {
         when (e.actionCommand) {
-            REFRESH_ACTION -> pluginActions.startRefreshing(project)
+            REFRESH_ACTION -> pluginActions.triggerRefresh(project)
             CHANGE_REFRESH_SETTINGS_ACTION -> {
                 val enabled = autoSyncCheckbox.isSelected
                 pluginActions.changeEnabled(enabled, project)
             }
-
         }
     }
 }
