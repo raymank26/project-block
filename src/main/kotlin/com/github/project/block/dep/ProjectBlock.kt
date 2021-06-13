@@ -1,4 +1,4 @@
-package com.github.project.block
+package com.github.project.block.dep
 
 interface ProjectBlock {
     fun getModules(): List<ModuleBlock>

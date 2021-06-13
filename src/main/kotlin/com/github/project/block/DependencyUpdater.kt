@@ -1,9 +1,9 @@
-package com.github.project
+package com.github.project.block
 
-import com.github.project.block.DependencyBlock
-import com.github.project.block.DependencyType
-import com.github.project.block.ModuleBlock
-import com.github.project.block.ProjectBlock
+import com.github.project.block.dep.DependencyBlock
+import com.github.project.block.dep.DependencyType
+import com.github.project.block.dep.ModuleBlock
+import com.github.project.block.dep.ProjectBlock
 
 class DependencyUpdater {
 

@@ -1,8 +1,8 @@
-package com.github.project
+package com.github.project.block
 
 import com.intellij.openapi.project.Project
 
-interface PluginActions {
+interface Plugin {
     fun triggerRefresh(project: Project, force: Boolean)
     fun triggerRefresh(project: Project) {
         triggerRefresh(project, false)

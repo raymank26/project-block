@@ -1,6 +1,6 @@
-package com.github.project.window
+package com.github.project.block.window
 
-import com.github.project.PluginActions
+import com.github.project.block.Plugin
 import com.intellij.icons.AllIcons.Actions
 import com.intellij.openapi.project.Project
 import com.intellij.ui.layout.panel
@@ -18,19 +18,19 @@ private const val CHANGE_REFRESH_SETTINGS_ACTION = "refresh-setting-change"
 class ProjectBlockPanel : ActionListener {
 
     private val content: JPanel
-    private val pluginActions: PluginActions
+    private val plugin: Plugin
     private val project: Project
 
     private lateinit var autoSyncCheckbox: JCheckBox
 
-    constructor(project: Project, pluginActions: PluginActions) {
+    constructor(project: Project, plugin: Plugin) {
         val that = this
         content = panel {
             row {
                 val toolBar = JToolBar()
                 toolBar.add(createButton(REFRESH_ACTION, "Refresh dependencies"))
                 toolBar.isBorderPainted = false
-                autoSyncCheckbox = JCheckBox("Enable sync", pluginActions.isChangeEnabled(project))
+                autoSyncCheckbox = JCheckBox("Enable sync", plugin.isChangeEnabled(project))
                 autoSyncCheckbox.actionCommand = CHANGE_REFRESH_SETTINGS_ACTION
                 autoSyncCheckbox.addActionListener(that)
                 toolBar.add(autoSyncCheckbox)
@@ -38,7 +38,7 @@ class ProjectBlockPanel : ActionListener {
             }
         }
         this.project = project
-        this.pluginActions = pluginActions
+        this.plugin = plugin
     }
 
     fun getContent(): JPanel {
@@ -56,10 +56,10 @@ class ProjectBlockPanel : ActionListener {
 
     override fun actionPerformed(e: ActionEvent) {
         when (e.actionCommand) {
-            REFRESH_ACTION -> pluginActions.triggerRefresh(project, true)
+            REFRESH_ACTION -> plugin.triggerRefresh(project, true)
             CHANGE_REFRESH_SETTINGS_ACTION -> {
                 val enabled = autoSyncCheckbox.isSelected
-                pluginActions.changeEnabled(enabled, project)
+                plugin.changeEnabled(enabled, project)
             }
         }
     }

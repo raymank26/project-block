@@ -1,6 +1,6 @@
-package com.github.project
+package com.github.project.block
 
-import com.github.project.block.IntellijProjectBlock
+import com.github.project.block.dep.IntellijProjectBlock
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.application.Application
 import com.intellij.openapi.application.ApplicationManager
@@ -13,7 +13,7 @@ private const val PROJ_BLOCK_REFRESH_PROP_KEY = "proj-block-refresh"
 
 class DependencyPlugin(
     private val application: Application
-) : PluginActions {
+) : Plugin {
 
     private val dependencyUpdater = DependencyUpdater()
 

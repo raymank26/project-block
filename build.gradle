@@ -4,8 +4,8 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.21'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'com.github.project.block'
+version '0.1-SNAPSHOT'
 
 repositories {
     mavenCentral()

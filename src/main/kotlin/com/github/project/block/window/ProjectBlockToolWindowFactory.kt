@@ -1,6 +1,6 @@
-package com.github.project.window
+package com.github.project.block.window
 
-import com.github.project.dependencyPlugin
+import com.github.project.block.dependencyPlugin
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow

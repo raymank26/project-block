@@ -1,4 +1,4 @@
-package com.github.project
+package com.github.project.block
 
 import com.intellij.ProjectTopics
 import com.intellij.openapi.module.Module
